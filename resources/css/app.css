@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.rounded-lg{
+    border-radius: 0.125rem !important;
+}
