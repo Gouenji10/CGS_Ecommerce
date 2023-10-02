@@ -9,6 +9,6 @@ use App\Http\Controllers\Controller;
 class CategoryController extends Controller
 {
     public function index(){
-        return Inertia::render('Admin/CategoryAdmin');
+        return Inertia::render('Admin/Category/CategoryIndex');
     }
 }

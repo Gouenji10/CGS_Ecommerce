@@ -7,7 +7,7 @@ import { RiDeleteBinLine, RiFileEditFill } from 'react-icons/ri';
 import { HiCheck } from 'react-icons/hi';
 import {IoMdAddCircleOutline} from 'react-icons/io'
 
-export default function CategoryAdmin({ auth }) {
+export default function CategoryIndex({ auth }) {
     return (
         <AdminLayout user={auth.user} >
             <Head title="Dashboard" />

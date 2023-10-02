@@ -4,7 +4,7 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { Button, Select } from 'flowbite-react';
 import { useEffect } from 'react';
 
@@ -87,9 +87,9 @@ export default function AttributeAdd({ auth }) {
                             <InputError message={errors.display_as} className="mt-2" />
                         </div>
                         <div className="flex justify-end gap-3 ">
-                            <Button color="failure" onClick={() => props.setOpenModal(undefined)}>
+                            <Link href={route('products.attribute.index')} className='flex items-center bg-red-600 text-white py-2 px-3 rounded-sm'>
                                 No, cancel
-                            </Button>
+                            </Link>
                             <PrimaryButton className="ml-4 rounded-sm" disabled={processing}>
                                 Yes, Add New
                             </PrimaryButton>
