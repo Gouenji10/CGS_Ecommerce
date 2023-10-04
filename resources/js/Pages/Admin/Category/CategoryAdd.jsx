@@ -1,29 +1,23 @@
 import AdminLayout from '@/Layouts/AdminLayout';
-import BreadcrumbAdmin from '@/Components/AdminComp/BreadcrumbAdmin';
+import BreadcrumbAdmin from "@/Components/AdminComp/BreadcrumbAdmin";
+import { Head, Link, useForm } from "@inertiajs/react";
+import { Select } from 'flowbite-react';
+import TextInput from '@/Components/TextInput';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import { Head, Link, useForm } from '@inertiajs/react';
-import { Select } from 'flowbite-react';
-import { useEffect } from 'react';
 
-export default function AttributeAdd({ auth }) {
+export default function CategoryAdd({ auth }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         slug: '',
-        display_as: '',
+        parent_id: '',
     });
-    useEffect(() => {
-        return (
-            reset('display_as', 'name', 'slug')
-        )
-    }, [])
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route('products.attribute.store'));
-    };
+        post(route('products.category.store'));
+    }
     return (
         <AdminLayout user={auth.user} >
             <Head title="Dashboard" />
@@ -31,12 +25,12 @@ export default function AttributeAdd({ auth }) {
                 <BreadcrumbAdmin
                     links={[
                         { title: 'Products' },
-                        { title: 'Attributes' },
-                        { title: 'Create Attribute' }
+                        { title: 'Categories' },
+                        { title: 'Create Category' }
                     ]}
                 />
                 <div className='title-wrapper py-5 mb-2 flex justify-between flex-wrap items-center border-bottom'>
-                    <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Add New Attribute</h1>
+                    <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Add New Category</h1>
                 </div>
             </div>
             <div className='bg-white'>
@@ -44,7 +38,7 @@ export default function AttributeAdd({ auth }) {
                     <form onSubmit={handleSubmit} className='w-3/4'>
                         <div className='mb-5'>
                             <div className="mb-2 block">
-                                <InputLabel htmlFor="addName" value="Atribute Name" />
+                                <InputLabel htmlFor="addName" value="Category Name" />
                             </div>
                             <TextInput
                                 id="name"
@@ -58,7 +52,7 @@ export default function AttributeAdd({ auth }) {
                         </div>
                         <div className='mb-5'>
                             <div className="mb-2 block">
-                                <InputLabel htmlFor="addSlug" value="Atribute Slug" />
+                                <InputLabel htmlFor="addSlug" value="Category Slug" />
                             </div>
                             <TextInput
                                 id="slug"
@@ -71,23 +65,23 @@ export default function AttributeAdd({ auth }) {
                         </div>
                         <div className='mb-5'>
                             <div className='mb-2 block'>
-                                <InputLabel htmlFor="display_as" value="Display as" />
+                                <InputLabel htmlFor="parent_id" value="Select Parent" />
                             </div>
                             <Select
-                                id="display_as"
-                                name='display_as'
+                                id="parent_id"
+                                name='parent_id'
                                 value={data.display_as}
-                                onChange={(e) => setData('display_as', e.target.value)}
+                                onChange={(e) => setData('parent_id', e.target.value)}
                             >
-                                <option value=''>Select an option</option>
-                                <option value="select">Drop Down</option>
-                                <option value="radio">Radio Option</option>
-                                <option value="swatch">Swatch</option>
+                                <option value="">Select an option</option>
+                                <option value="0">Drop Down</option>
+                                <option value="1">Radio Option</option>
+                                <option value="2">Swatch</option>
                             </Select>
-                            <InputError message={errors.display_as} className="mt-2" />
+                            <InputError message={errors.parent_id} className="mt-2" />
                         </div>
                         <div className="flex justify-end gap-3 ">
-                            <Link href={route('products.attribute.index')} className='flex items-center bg-red-600 text-white py-2 px-3 rounded-sm'>
+                            <Link href={route('products.category.index')} className='flex items-center bg-red-600 text-white py-2 px-3 rounded-sm'>
                                 No, cancel
                             </Link>
                             <PrimaryButton className="ml-4 rounded-sm" disabled={processing}>

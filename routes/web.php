@@ -56,6 +56,8 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
 
 Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::get('/admin/products/categories',[CategoryController::class,'index'])->name('products.category.index');
+    Route::get('/admin/products/categories/create',[CategoryController::class,'create'])->name('products.category.add');
+    Route::post('/admin/products/categories/store',[CategoryController::class,'store'])->name('products.category.store');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function(){

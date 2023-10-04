@@ -1,44 +1,54 @@
 import BreadcrumbAdmin from '@/Components/AdminComp/BreadcrumbAdmin';
 import AdminLayout from '@/Layouts/AdminLayout';
-import { Head } from '@inertiajs/react';
-import { Badge, Button, Table, TextInput } from 'flowbite-react';
-import { BiSearch } from 'react-icons/bi';
+import { Head, Link } from '@inertiajs/react';
+import { Badge, Button, Table, Alert } from 'flowbite-react';
 import { RiDeleteBinLine, RiFileEditFill } from 'react-icons/ri';
-import { HiCheck } from 'react-icons/hi';
-import {IoMdAddCircleOutline} from 'react-icons/io'
+import { IoMdAddCircleOutline } from 'react-icons/io'
+import { useState } from 'react';
+import { FiCheckCircle } from 'react-icons/fi'
 
-export default function CategoryIndex({ auth }) {
+export default function CategoryIndex({ auth, flash }) {
+    const [response, setResponse] = useState(flash)
+    const props = { response, setResponse }
     return (
         <AdminLayout user={auth.user} >
             <Head title="Dashboard" />
             <div className='px-6 pt-6'>
-                <BreadcrumbAdmin links={[{ title: 'Products' },{title:'Categories'}]} />
+                <BreadcrumbAdmin links={[{ title: 'Products' }, { title: 'Categories' }]} />
                 <div className='title-wrapper py-5 mb-2 flex justify-between flex-wrap items-center border-bottom'>
                     <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Categories</h1>
-                    <div className="w-3/4">
-                        <TextInput
-                            icon={BiSearch}
-                            id="search"
-                            placeholder="Search Products..."
-                            required
-                            type="text"
-                        />
-                    </div>
-                    <Button color='failure'><IoMdAddCircleOutline className='w-4 h-4 mr-1'/> Add New</Button>
+                    <Link href={route('products.category.add')} className='flex items-center bg-red-600 text-white py-2 px-3 rounded-sm'>
+                        <IoMdAddCircleOutline className='w-4 h-4 mr-1' /> Add New
+                    </Link>
                 </div>
             </div>
             <div className='bg-white'>
+                {flash?.message !== null ?
+                    <Alert
+                        color="success"
+                        withBorderAccent
+                        className={`mx-6 ${props.response}`}
+                        onDismiss={() => props.setResponse('hidden')}
+                        icon={FiCheckCircle}
+                    >
+                        <span>
+                            <p>
+                                <span className="font-medium">
+                                    Success !! &nbsp;
+                                </span>
+                                {flash?.message}
+                            </p>
+                        </span>
+                    </Alert>
+                    : ''}
                 <Table>
                     <Table.Head>
                         <Table.HeadCell>SN</Table.HeadCell>
-                        <Table.HeadCell>Product Name</Table.HeadCell>
-                        <Table.HeadCell>SKU</Table.HeadCell>
-                        <Table.HeadCell>Category</Table.HeadCell>
-                        <Table.HeadCell>Price</Table.HeadCell>
+                        <Table.HeadCell>Category Name</Table.HeadCell>
+                        <Table.HeadCell>Slug</Table.HeadCell>
+                        <Table.HeadCell>Product Count</Table.HeadCell>
                         <Table.HeadCell>Status</Table.HeadCell>
-                        <Table.HeadCell>
-                            Actions
-                        </Table.HeadCell>
+                        <Table.HeadCell>Actions</Table.HeadCell>
                     </Table.Head>
 
                     <Table.Body className="divide-y">
